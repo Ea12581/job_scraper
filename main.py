@@ -29,7 +29,6 @@ ALLOWED_JOB_KEYS = [
 
 SHEET_ID2='https://docs.google.com/spreadsheets/d/105xDVr9rhGolYLlliy7vEKJ9Tw9GsjnIqKs_oLc3PPI/edit?usp=sharing'
 SHEET_ID='https://docs.google.com/spreadsheets/d/1JJlsdfJvdm4l-gQjt5ddzQsaUz7OcgV4R7jr-5_uUmM/edit?usp=sharing'
-SHEET_NAME='לינקים לעבודות בחברות היברידיות'
 def load_companies(json_path):
     with open(json_path, 'r', encoding='utf-8') as f:
         return json.load(f)

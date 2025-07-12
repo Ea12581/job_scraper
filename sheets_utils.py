@@ -47,16 +47,10 @@ def write_jobs_to_google_sheet(sheet_url: str, jobs_data: List[dict]):
     """
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
     creds = Credentials.from_service_account_file('credentials.json', scopes=SCOPES)
-
-    # Connect to Google Sheets
     gc = gspread.authorize(creds)
-
-    # Open the sheet (replace with your actual URL)
     sh = gc.open_by_url(sheet_url)
     worksheet = sh.sheet1
 
-
-    # Convert to DataFrame and write to sheet
     df = pd.DataFrame(jobs_data)
     is_empty = not worksheet.acell('A1').value
     next_row = len(worksheet.get_all_values()) + 1 if not is_empty else 1

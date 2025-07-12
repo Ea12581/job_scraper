@@ -1,21 +1,14 @@
-# job_scraper/apify_scraper.py
-import json
-
 from apify_client import ApifyClient
 
 
 
-def run_linkedin_job_scraper(api_token, company_job_url, keywords=None, location=None, published_at="r604800"):
+def run_linkedin_job_scraper(api_token, company_job_url):
     """
     Run the LinkedIn job scraper on a specific company's job search URL.
 
     Args:
         api_token (str): Your Apify API token.
         company_job_url (str): Full LinkedIn job search URL for the company.
-        keywords (list[str]): Optional list of keywords to filter by.
-        location (str): Optional location string.
-        published_at (str): Time range, e.g., "r86400" for past 24h or "r604800" for past 7 days.
-
     Returns:
         list[dict]: List of job results with fields like job title, URL, etc.
     """
@@ -28,7 +21,6 @@ def run_linkedin_job_scraper(api_token, company_job_url, keywords=None, location
         "saveOnlyUniqueItems": False,
         "proxy": { "useApifyProxy": True }
     }
-    print("Sending to Apify:\n", json.dumps(run_input, indent=2))
     print(f"📡 Running scraper on: {company_job_url}")
     run = client.actor("2rJKkhh7vjpX7pvjg").call(run_input=run_input)
 

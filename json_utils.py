@@ -1,4 +1,3 @@
-# job_scraper/json_utils.py
 
 import json
 
