@@ -58,6 +58,65 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 ```
 
 ---
+---
+
+## 🔎 How to Find `companyId` (LinkedIn Internal ID)
+
+Each company on LinkedIn has a unique internal ID (called `companyId`) used to construct job search URLs.
+
+You can manually extract it using the steps below:
+
+### ✅ Steps to Find `companyId`:
+
+1. Go to the company's LinkedIn page.  
+   Example: `https://www.linkedin.com/company/skai/`
+
+2. Right-click on the page and select **"View Page Source"** or open **Developer Tools** (`F12`).
+
+3. Press `Ctrl+F` and search for `companyId` or `urn:li:organization`.
+
+4. Look for a line like this:
+"companyId":1234567
+
+makefile
+Copy
+Edi
+or:
+urn:li:organization:1234567
+
+pgsql
+Copy
+Edit
+
+5. The number `1234567` is the internal LinkedIn `companyId`.
+
+### 📄 Example `companies_ids.JSON` Entry
+
+```json
+[
+{
+ "companyName": "Skai",
+ "companyId": 1234567
+},
+{
+ "companyName": "SolarEdge",
+ "companyId": 9876543
+}
+]
+Copy
+Edit
+
+
+
+
+
+
+
+
+Ask ChatGPT
+
+
+---
 
 ## 🚀 Running the Scraper
 
