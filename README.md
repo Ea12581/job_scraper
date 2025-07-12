@@ -76,17 +76,15 @@ You can manually extract it using the steps below:
 3. Press `Ctrl+F` and search for `companyId` or `urn:li:organization`.
 
 4. Look for a line like this:
+
+```makefile
 "companyId":1234567
 
-makefile
-Copy
-Edi
 or:
+```makefile
 urn:li:organization:1234567
 
-pgsql
-Copy
-Edit
+```pgsql
 
 5. The number `1234567` is the internal LinkedIn `companyId`.
 
@@ -103,17 +101,6 @@ Edit
  "companyId": 9876543
 }
 ]
-Copy
-Edit
-
-
-
-
-
-
-
-
-Ask ChatGPT
 
 
 ---
