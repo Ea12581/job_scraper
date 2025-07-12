@@ -79,12 +79,14 @@ You can manually extract it using the steps below:
 
 ```makefile
 "companyId":1234567
+```
 
 or:
 ```makefile
 urn:li:organization:1234567
+```
 
-```pgsql
+
 
 5. The number `1234567` is the internal LinkedIn `companyId`.
 
@@ -101,7 +103,7 @@ urn:li:organization:1234567
  "companyId": 9876543
 }
 ]
-
+```
 
 ---
 
