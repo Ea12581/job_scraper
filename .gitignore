@@ -1,0 +1,4 @@
+credentials.json
+.env
+company_info.JSON
+extract_companies_id.py
