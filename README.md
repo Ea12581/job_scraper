@@ -28,45 +28,50 @@ This Python project scrapes job listings from LinkedIn using the [Apify LinkedIn
 ├── .env                       # Environment variables including Apify tokens
 ├── credentials.json           # Google Sheets service account credentials
 
-🔐 Setup .env
-Create a .env file with:
 
-env
-Copy
-Edit
+---
+
+## 🔐 Setup `.env`
+
+Create a `.env` file in your project root with the following:
+
+```env
 APIFY_TOKEN=your_token_1
 APIFY_TOKEN2=your_token_2
 APIFY_TOKEN3=your_token_3
-Only valid tokens are used in a fallback mechanism if limits are reached. You can create tokens inside the API section in [Apify LinkedIn Job Scraper](https://apify.com/marketplace) 
+
+These tokens are used in fallback order if any reach their usage limits.
+
+Generate your tokens from Apify Console.
 
 🔑 Google Sheets Credentials
-Download your Google service account key as credentials.json and share the Google Sheet with the associated email.
+Create a Google Service Account and download the credentials.json file.
 
-Set correct scopes inside sheets_utils.py:
+Share your target Google Sheet with the service account email.
 
-python
-Copy
-Edit
+Ensure the correct scope is used in sheets_utils.py:
+
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 🚀 Running the Scraper
+Run the following command:
+
 bash
 Copy
 Edit
 python main.py
-
-This will:
+The script will:
 
 Load companies from companies_ids.JSON
 
-Scrape LinkedIn for job listings
+Scrape LinkedIn jobs via Apify
 
-Filter job attributes
+Filter job fields
 
-Append them to your configured Google Sheet
+Write jobs to the configured Google Sheet
 
-🧠 Example of Saved Fields
-The scraper saves these job attributes:
+🧠 Job Attributes Saved
+The scraper saves the following fields for each job:
 
 companyName
 
@@ -93,17 +98,12 @@ posterFullName
 posterProfileUrl
 
 📈 Google Sheet Output
-The job listings will be written into the sheet specified by SHEET_ID in main.py, with column headers automatically inserted.
+Job data is appended to the sheet defined by SHEET_ID in main.py.
+Headers are inserted once, and jobs are written in new rows automatically.
 
-
-🙌 Acknowledgments
+🙌 Built With
 Apify LinkedIn Job Scraper
 
 gspread
 
 pandas
-
-vbnet
-Copy
-Edit
- 
