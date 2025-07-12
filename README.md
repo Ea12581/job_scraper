@@ -44,22 +44,24 @@ These tokens are used in fallback order if any reach their usage limits.
 
 Generate your tokens from Apify Console.
 
-🔑 Google Sheets Credentials
+---
+
+## 🔑 Google Sheets Credentials
 Create a Google Service Account and download the credentials.json file.
 
 Share your target Google Sheet with the service account email.
 
 Ensure the correct scope is used in sheets_utils.py:
 
+```
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-🚀 Running the Scraper
+## 🚀 Running the Scraper
 Run the following command:
 
-bash
-Copy
-Edit
+```bash
 python main.py
+
 The script will:
 
 Load companies from companies_ids.JSON
@@ -70,7 +72,7 @@ Filter job fields
 
 Write jobs to the configured Google Sheet
 
-🧠 Job Attributes Saved
+## 🧠 Job Attributes Saved
 The scraper saves the following fields for each job:
 
 companyName
@@ -97,11 +99,11 @@ posterFullName
 
 posterProfileUrl
 
-📈 Google Sheet Output
+## 📈 Google Sheet Output
 Job data is appended to the sheet defined by SHEET_ID in main.py.
 Headers are inserted once, and jobs are written in new rows automatically.
 
-🙌 Built With
+## 🙌 Built With
 Apify LinkedIn Job Scraper
 
 gspread
