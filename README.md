@@ -1,6 +1,8 @@
 # 🔍 LinkedIn Job Scraper
 
 This Python project scrapes job listings from LinkedIn using the [Apify LinkedIn Job Scraper](https://apify.com/marketplace) actor, based on a list of company LinkedIn IDs. The results are filtered and written directly into a Google Sheet.
+The scraper doing the search by this url struct:
+https://www.linkedin.com/jobs/search/?f_C={company_id}&geoId={geo_id}
 
 ---
 
@@ -69,40 +71,39 @@ You can manually extract it using the steps below:
 ### ✅ Steps to Find `companyId`:
 
 1. Go to the company's LinkedIn page.  
-   Example: `https://www.linkedin.com/company/skai/`
+   Example: `https://www.linkedin.com/company/someCompany/`
 
-2. Right-click on the page and select **"View Page Source"** or open **Developer Tools** (`F12`).
+2. Click on the jobs section
 
-3. Press `Ctrl+F` and search for `companyId` or `urn:li:organization`.
+3. Roll down and click on the ***see all jobs** options.
 
-4. Look for a line like this:
+4. Look on the url and search for:
 
 ```makefile
-"companyId":1234567
-```
-
-or:
-```makefile
-urn:li:organization:1234567
+https://www.linkedin.com/jobs/search/?currentJobId=4261918251& ***f_C=12345***
 ```
 
 
 
-5. The number `1234567` is the internal LinkedIn `companyId`.
+5. The parameter f_C = `12345` is the internal LinkedIn `companyId`.
 
 ### 📄 Example `companies_ids.JSON` Entry
 
 ```json
 [
 {
- "companyName": "Skai",
+ "companyName": "AwosomeCompany",
  "companyId": 1234567
 },
 {
- "companyName": "SolarEdge",
+ "companyName": "CyberAISolutions",
  "companyId": 9876543
 }
 ]
+
+* I have used in another scraper to get info on multiples companies by their url, but it needs another mini script to extract the data and make the companies_ids.JSON file
+this scraper:
+https://console.apify.com/actors/AjfNXEI9qTA2IdaAX/runs/5rlAeZ2Nc7WHb2yPf#output
 ```
 
 ---
