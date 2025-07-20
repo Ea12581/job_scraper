@@ -41,7 +41,7 @@ def main():
 
     total_jobs = 0
     scraper = JobScraper(TOKENS)
-    for company in companies[:1]:
+    for company in companies:
         if total_jobs >= MAX_JOBS:
             break
         name = company.get("name") or company.get("companyName")
