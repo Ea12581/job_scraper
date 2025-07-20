@@ -1,10 +1,8 @@
-import json
 from apify_scraper import JobScraper
 from json_utils import load_company_data
 from linkedin_utils import build_linkedin_jobs_url
 from sheets_utils import write_jobs_to_google_sheet, restart_file, filter_job_attributes
 from dotenv import load_dotenv
-from collections import deque
 import os
 load_dotenv()
 
