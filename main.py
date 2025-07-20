@@ -1,15 +1,20 @@
 import json
-from apify_scraper import try_all_tokens
+from apify_scraper import JobScraper
+from json_utils import load_company_data
+from linkedin_utils import build_linkedin_jobs_url
 from sheets_utils import write_jobs_to_google_sheet, restart_file, filter_job_attributes
 from dotenv import load_dotenv
+from collections import deque
 import os
 load_dotenv()
 
 
-API_TOKEN_1 = os.getenv("APIFY_TOKEN")
-API_TOKEN_2 = os.getenv("APIFY_TOKEN2")
-API_TOKEN_3 = os.getenv("APIFY_TOKEN3")
-TOKENS = [token for token in [API_TOKEN_1, API_TOKEN_2,API_TOKEN_3] if token]
+API_TOKEN_1 = os.getenv("APIFY_TOKEN_1")
+API_TOKEN_2 = os.getenv("APIFY_TOKEN_2")
+API_TOKEN_3 = os.getenv("APIFY_TOKEN_3")
+API_TOKEN_4 = os.getenv("APIFY_TOKEN_4")
+API_TOKEN_5 = os.getenv("APIFY_TOKEN_5")
+TOKENS = (token for token in [API_TOKEN_1, API_TOKEN_2,API_TOKEN_3,API_TOKEN_4,API_TOKEN_5] if token)
 MAX_JOBS=50000
 COMPANIES_DATA_PATH = "companies_ids.JSON"
 ALLOWED_JOB_KEYS = [
@@ -18,9 +23,10 @@ ALLOWED_JOB_KEYS = [
     "jobUrl",
     "publishedAt",
     "postedTime",
+    "jobDescription",
     "sector",
-    "applyUrl",
     "appliesCount",
+    "applyUrl",
     "experienceLevel",
     "workplaceTypes",
     "posterFullName",
@@ -28,21 +34,16 @@ ALLOWED_JOB_KEYS = [
 ]
 
 SHEET_ID=os.getenv("SHEET_ID")
-def load_companies(json_path):
-    with open(json_path, 'r', encoding='utf-8') as f:
-        return json.load(f)
 
-def build_search_url(company_id):
-    return f"https://www.linkedin.com/jobs/search/?f_C={company_id}&geoId=101620260"
 
 def main():
-    companies = load_companies(COMPANIES_DATA_PATH)
+    companies = load_company_data(COMPANIES_DATA_PATH)
     with restart_file(SHEET_ID):
         print("✅ Google Sheet cleared.")
 
     total_jobs = 0
-
-    for company in companies:
+    scraper = JobScraper(TOKENS)
+    for company in companies[:1]:
         if total_jobs >= MAX_JOBS:
             break
         name = company.get("name") or company.get("companyName")
@@ -53,10 +54,10 @@ def main():
             continue
 
         print(f"🔍 Scraping jobs for {name} (ID: {company_id})")
-        search_url = build_search_url(company_id)
+        search_url = build_linkedin_jobs_url(company_id)
 
         try:
-            jobs = try_all_tokens(search_url, name,TOKENS)
+            jobs = scraper.try_all_tokens(search_url,company_name=name)
             if not jobs:
                 continue
         except Exception as e:

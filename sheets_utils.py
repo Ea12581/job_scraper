@@ -18,11 +18,22 @@ def filter_job_attributes(job: dict, allowed_keys: list) -> dict:
     Returns:
         dict: A new dictionary with only the whitelisted keys.
     """
-    filtered_job = {key: job.get(key) for key in allowed_keys}
-    date_str = filtered_job["publishedAt"]
+    cleaned_job = {}
+    for key in allowed_keys:
+        if key in job:
+            value = job[key]
+            # Clean up unwanted link text or misjoined fields
+            if isinstance(value, str):
+                # Remove URLs accidentally joined with text
+                value = value.strip()
+                if "http" in value and not value.startswith("http"):
+                    parts = value.split("http")
+                    value = parts[0].strip()
+            cleaned_job[key] = value
+    date_str = cleaned_job["publishedAt"]
     parsed_date = datetime.fromisoformat(date_str.replace("Z", "+00:00")).strftime("%Y-%m-%d")
-    filtered_job["publishedAt"] = str(parsed_date)
-    return filtered_job
+    cleaned_job["publishedAt"] = str(parsed_date)
+    return cleaned_job
 
 @contextmanager
 def restart_file(sheet_url: str):
@@ -42,7 +53,6 @@ def write_jobs_to_google_sheet(sheet_url: str, jobs_data: List[dict]):
     Writes job data to a Google Sheet using pandas.
     Args:
         sheet_url (str): URL of the Google Sheet.
-        worksheet_name (str): Name of the worksheet tab to write into.
         jobs_data (List[dict]): List of job dictionaries containing keys: 'company', 'title', 'link', 'postedAt'.
     """
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']

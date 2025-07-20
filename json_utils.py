@@ -5,6 +5,7 @@ def load_company_data(json_path: str):
     """
     Load JSON and return list of (company_name, company_id)
     """
+
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
@@ -14,8 +15,8 @@ def load_company_data(json_path: str):
         company_id = company.get("companyId")
         if name and company_id:
             company_info.append({
-                "company_name": name,
-                "company_id": company_id
+                "companyName": name,
+                "companyId": company_id
             })
 
     return company_info
