@@ -21,15 +21,58 @@ https://www.linkedin.com/jobs/search/?f_C={company_id}&geoId={geo_id}
 
 ```bash
 .
-├── main.py                     # Entry point: controls full scraping and writing flow
+├── extract_companies_jobs.py                     # Entry point: controls full scraping and writing flow
 ├── apify_scraper.py           # Apify API client and token fallback logic
 ├── sheets_utils.py            # Google Sheets utilities (write, restart, filter jobs)
 ├── json_utils.py              # JSON file utilities (load, filter companies)
 ├── linkedin_utils.py          # LinkedIn-specific helpers (ID extraction, URL building)
-├── companies_ids.JSON         # Input file with companies and their LinkedIn IDs
+├── companies_ids_example.JSON         # Input file with companies and their LinkedIn IDs
 ├── .env                       # Environment variables including Apify tokens
 ├── credentials.json           # Google Sheets service account credentials
 ```
+
+---
+## 🆕 Company ID Extractor (Google Sheets Integration)
+This new module helps you extract LinkedIn company IDs automatically from a Google Sheet .xlsx file containing a "company" column.
+
+⚙️ How It Works
+The script:
+
+Loads company names from an uploaded Google Sheet .xlsx (not a live sheet link).
+
+Attempts multiple variants of each name to guess the correct LinkedIn profile URL.
+
+Scrapes the LinkedIn company page using a stealthy headless browser.
+
+Extracts the internal companyId for each matched company.
+
+Saves results into companies_ids.JSON.
+
+#📄 Example Google Sheet Input
+
+| company          |
+|------------------|
+| OpenAI           |
+| Microsoft        |
+| CyberAISolutions |
+
+
+#🧪 Running the Extractor
+Add your .xlsx file and set the path in .env:
+
+```env
+COMPANIES_URL=companies_list.xlsx
+```
+Run:
+
+```bash
+python extract_companies_id.py
+```
+You’ll get updates in the console and companies_ids.JSON will be updated incrementally.
+
+* another way is to use another scraper to get info on multiples companies by their url, but it needs another mini script to extract the data and make the companies_ids.JSON file
+this scraper:
+https://console.apify.com/actors/AjfNXEI9qTA2IdaAX/runs/5rlAeZ2Nc7WHb2yPf#output
 
 ---
 
@@ -41,6 +84,7 @@ Create a `.env` file in your project root with the following:
 APIFY_TOKEN=your_token_1
 APIFY_TOKEN2=your_token_2
 APIFY_TOKEN3=your_token_3
+...
 ```
 
 These tokens are used in fallback order if any reach their usage limits.  
@@ -100,10 +144,6 @@ https://www.linkedin.com/jobs/search/?currentJobId=4261918251& ***f_C=12345***
  "companyId": 9876543
 }
 ]
-
-* I have used in another scraper to get info on multiples companies by their url, but it needs another mini script to extract the data and make the companies_ids.JSON file
-this scraper:
-https://console.apify.com/actors/AjfNXEI9qTA2IdaAX/runs/5rlAeZ2Nc7WHb2yPf#output
 ```
 
 ---
@@ -113,7 +153,7 @@ https://console.apify.com/actors/AjfNXEI9qTA2IdaAX/runs/5rlAeZ2Nc7WHb2yPf#output
 Run the following command:
 
 ```bash
-python main.py
+python extract_companies_jobs.py
 ```
 
 This script will:
