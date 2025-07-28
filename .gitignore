@@ -2,7 +2,7 @@ credentials.json
 .env
 companies_info.JSON
 __pycache__/
-companis_ids.JSON
+companis_ids_db.JSON
 extract_by_url.py
 fix_ids_format.py
 missing_companies.JSON

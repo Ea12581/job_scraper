@@ -60,7 +60,7 @@ def get_company_id_safe(company_name: str) -> int | None:
                 if company_id and company_linkdin_name.lower() == company_name.lower():
                     print(f"[✅ MATCH] {company_name} → {name_variant} → {company_id}")
                     print(f"url: {url}")
-                    return int(company_id),
+                    return int(company_id)
             except Exception as e:
                 print(f"[ERROR] {name_variant} → {e}")
                 time.sleep(1)
