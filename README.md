@@ -21,12 +21,12 @@ https://www.linkedin.com/jobs/search/?f_C={company_id}&geoId={geo_id}
 
 ```bash
 .
-├── main.py                     # Entry point: controls full scraping and writing flow
+├── extract_companies_jobs.py                     # Entry point: controls full scraping and writing flow
 ├── apify_scraper.py           # Apify API client and token fallback logic
 ├── sheets_utils.py            # Google Sheets utilities (write, restart, filter jobs)
 ├── json_utils.py              # JSON file utilities (load, filter companies)
 ├── linkedin_utils.py          # LinkedIn-specific helpers (ID extraction, URL building)
-├── companies_ids.JSON         # Input file with companies and their LinkedIn IDs
+├── companies_ids_example.JSON         # Input file with companies and their LinkedIn IDs
 ├── .env                       # Environment variables including Apify tokens
 ├── credentials.json           # Google Sheets service account credentials
 ```
@@ -113,7 +113,7 @@ https://console.apify.com/actors/AjfNXEI9qTA2IdaAX/runs/5rlAeZ2Nc7WHb2yPf#output
 Run the following command:
 
 ```bash
-python main.py
+python extract_companies_jobs.py
 ```
 
 This script will:

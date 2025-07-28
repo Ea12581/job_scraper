@@ -1,6 +1,9 @@
+from io import BytesIO
 from typing import List
+
 import pandas as pd
 import gspread
+import requests
 from google.oauth2.service_account import Credentials
 from contextlib import contextmanager
 from datetime import datetime
@@ -69,4 +72,20 @@ def write_jobs_to_google_sheet(sheet_url: str, jobs_data: List[dict]):
         worksheet.update([df.columns.values.tolist()] + df.values.tolist())
     else:
         worksheet.update(f'A{next_row}', df.values.tolist())
+
+def extract_company_names_from_google_sheet_xlsx(xlsx_url: str, column_name: str = "Company") -> list[str]:
+    """
+    Downloads an .xlsx Google Sheet and extracts the specified column into a list.
+    """
+    try:
+        response = requests.get(xlsx_url)
+        response.raise_for_status()
+        df = pd.read_excel(BytesIO(response.content), header=2)
+    except Exception as e:
+        raise ValueError(f"❌ Failed to download or parse sheet: {e}")
+
+    if column_name not in df.columns:
+        raise ValueError(f"❌ Column '{column_name}' not found. Found columns: {df.columns.tolist()}")
+
+    return df[column_name].dropna().astype(str).str.strip().tolist()
 

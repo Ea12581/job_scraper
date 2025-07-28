@@ -1,5 +1,9 @@
 credentials.json
 .env
-company_info.JSON
-companies_ids.JSON
-extract_companies_id.py
+companies_info.JSON
+__pycache__/
+companis_ids.JSON
+extract_by_url.py
+fix_ids_format.py
+missing_companies.JSON
+restore_companies_data_script.py

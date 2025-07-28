@@ -12,9 +12,13 @@ API_TOKEN_2 = os.getenv("APIFY_TOKEN_2")
 API_TOKEN_3 = os.getenv("APIFY_TOKEN_3")
 API_TOKEN_4 = os.getenv("APIFY_TOKEN_4")
 API_TOKEN_5 = os.getenv("APIFY_TOKEN_5")
-TOKENS = (token for token in [API_TOKEN_1, API_TOKEN_2,API_TOKEN_3,API_TOKEN_4,API_TOKEN_5] if token)
+API_TOKEN_6 = os.getenv("APIFY_TOKEN_6")
+API_TOKEN_7 = os.getenv("APIFY_TOKEN_7")
+API_TOKEN_8 = os.getenv("APIFY_TOKEN_8")
+API_TOKEN_9 = os.getenv("APIFY_TOKEN_9")
+TOKENS = (token for token in [API_TOKEN_7,API_TOKEN_8,API_TOKEN_9] if token)
 MAX_JOBS=50000
-COMPANIES_DATA_PATH = "companies_ids.JSON"
+COMPANIES_DATA_PATH = "companies_ids_example.JSON"
 ALLOWED_JOB_KEYS = [
     "companyName",
     "jobTitle",
